@@ -1,7 +1,7 @@
 {
   "name": "se.omnifinity.omnitrack",
   "version": "1.0.0",
-  "displayName": "Omnitrack API",
+  "displayName": "Omnideck",
   "description": "This is the Omnitrack API package",
   "unity": "2022.3",
   "documentationUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/Documentation/omnitrack.md",
