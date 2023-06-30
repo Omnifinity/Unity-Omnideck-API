@@ -1,12 +1,12 @@
 {
-  "name": "se.omnifinity.omnitrack",
+  "name": "se.omnifinity.omnideck",
   "version": "1.0.0",
   "displayName": "Omnideck",
-  "description": "This is the Omnitrack API package",
+  "description": "This is the Omnideck API package",
   "unity": "2022.3",
-  "documentationUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/Documentation/omnitrack.md",
-  "changelogUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/CHANGELOG.md",
-  "licensesUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/LICENSE",
+  "documentationUrl": "https://github.com/Omnifinity/Unity-Omnideck-API/blob/main/Documentation/omnideck.md",
+  "changelogUrl": "https://github.com/Omnifinity/Unity-Omnideck-API/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/Omnifinity/Unity-Omnideck-API/blob/main/LICENSE",
   "dependencies": {
     "com.unity.xr.interaction.toolkit": "2.4.0",
     "com.unity.xr.openxr": "1.8.1",
@@ -14,6 +14,7 @@
   },
   "keywords": [
     "omnifinity",
+    "omnideck",
     "omnitrack"
   ],
   "author": {
