@@ -20,5 +20,17 @@
     "name": "Omnifinity",
     "email": "info@omnifinity.se",
     "url": "https://www.omnifinity.se"
-  }
+  },
+  "samples": [
+    {
+      "displayname": "Movement using a Character Controller",
+      "description": "Contains samples for using the Omnideck with a Character Controller",
+      "path":  "Samples~/SamplesCharacterController"
+    },
+    {
+      "displayname": "Movement using a Vector3",
+      "description": "Contains samples for using the Omnideck with a Vector3",
+      "path": "Samples~/SamplesVector3"
+    }
+  ]
 }
