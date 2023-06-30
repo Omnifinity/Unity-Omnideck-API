@@ -5,8 +5,8 @@
   "description": "This is the Omnitrack API package",
   "unity": "2022.3",
   "documentationUrl": "https://www.omnifinity.se/",
-  "changelogUrl": "https://www.omnifinity.se/omnitrack-unity-api/changelog.html",
-  "licensesUrl": "https://www.omnifinity.se/omnitrack-unity-api/licensing.html",
+  "changelogUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/CHANGELOG.md",
+  "licensesUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/LICENSE.md",
   "dependencies": {
     "com.unity.modules.xr": "1.0.0"
   },
