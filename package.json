@@ -8,6 +8,8 @@
   "changelogUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/CHANGELOG.md",
   "licensesUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/LICENSE",
   "dependencies": {
+    "com.unity.xr.interaction.toolkit": "2.4.0",
+    "com.unity.xr.openxr": "1.8.1",
     "com.unity.modules.xr": "1.0.0"
   },
   "keywords": [
