@@ -1,6 +1,6 @@
 # Documentation
 
-This is the documentation for the Omnitrack API
+This is the documentation for the Unity Omnideck API
 
 ## Overview
 
