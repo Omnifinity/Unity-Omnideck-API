@@ -6,7 +6,7 @@
   "unity": "2022.3",
   "documentationUrl": "https://www.omnifinity.se/",
   "changelogUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/CHANGELOG.md",
-  "licensesUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/LICENSE.md",
+  "licensesUrl": "https://github.com/Omnifinity/Unity-Omnitrack-API/blob/main/LICENSE",
   "dependencies": {
     "com.unity.modules.xr": "1.0.0"
   },
