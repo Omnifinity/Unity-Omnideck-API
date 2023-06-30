@@ -1,0 +1,22 @@
+{
+  "name": "se.omnifinity.omnitrack",
+  "version": "1.0.0",
+  "displayName": "Omnitrack API",
+  "description": "This is the Omnitrack API package",
+  "unity": "2022.3",
+  "documentationUrl": "https://www.omnifinity.se/",
+  "changelogUrl": "https://www.omnifinity.se/omnitrack-unity-api/changelog.html",
+  "licensesUrl": "https://www.omnifinity.se/omnitrack-unity-api/licensing.html",
+  "dependencies": {
+    "com.unity.modules.xr": "1.0.0"
+  },
+  "keywords": [
+    "omnifinity",
+    "omnitrack"
+  ],
+  "author": {
+    "name": "Omnifinity",
+    "email": "info@omnifinity.se",
+    "url": "https://www.omnifinity.se"
+  }
+}
