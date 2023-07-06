@@ -2,7 +2,7 @@
    Copyright 2023 MSE Omnifinity AB
    The code below is a simple example of using a standard Unity CharacterController
    attached to the SteamVR CameraRig for moving the Omnideck user around based on
-   position data arriving from Omnitrack.
+   position data arriving from Omnideck.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@ using UnityEngine;
 
 namespace Omnifinity
 {
-	namespace Omnitrack
+	namespace Omnideck
 	{
 
-		public class CharacterControllerExample : MonoBehaviour
+		public class OmnideckCharacterController : MonoBehaviour
 		{
 
 			// debugging stuff
@@ -37,8 +37,8 @@ namespace Omnifinity
 			// The XR camera
 			public GameObject xrCamera = null;
 
-			// The interface to Omnitrack
-			OmnitrackInterface _omnitrackInterface;
+			// The interface to Omnideck
+			OmnideckInterface _omnideckInterface;
 
 			// Camera eye transform for positioning of head collider
 			Transform _cameraTransform = null;
@@ -50,17 +50,17 @@ namespace Omnifinity
 			// setup various things
 			void Start()
 			{
-				// get hold of the Omnitrack interface component
-				_omnitrackInterface = GetComponent<OmnitrackInterface>();
-				if (_omnitrackInterface)
+				// get hold of the Omnideck interface component
+				_omnideckInterface = GetComponent<OmnideckInterface>();
+				if (_omnideckInterface)
 				{
 					if (debugLevel != LogLevel.None)
-						Debug.Log("OmnitrackInterface object: " + _omnitrackInterface);
+						Debug.Log("OmnideckInterface object: " + _omnideckInterface);
 				}
 				else
 				{
 					if (debugLevel != LogLevel.None)
-						Debug.Log("Unable to find OmnitrackInterface component on object. Please add an OmnitrackInterface component.", gameObject);
+						Debug.Log("Unable to find OmnideckInterface component on object. Please add an OmnideckInterface component.", gameObject);
 					return;
 				}
 
@@ -97,7 +97,7 @@ namespace Omnifinity
 			void Update()
 			{
 				// escape if we have not gotten hold of the interface component
-				if (!_omnitrackInterface)
+				if (!_omnideckInterface)
 					return;
 
 				if (_characterController == null)
@@ -108,7 +108,7 @@ namespace Omnifinity
 				}
 
 				// calculate movement vector since last pass [m/s]
-				Vector3 newMovementVector = _omnitrackInterface.GetCurrentOmnideckCharacterMovementVector();
+				Vector3 newMovementVector = _omnideckInterface.GetCurrentOmnideckCharacterMovementVector();
 
 				// disregard height changes
 				Vector3 currMovementVector = new Vector3(newMovementVector.x, 0, newMovementVector.z);

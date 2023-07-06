@@ -1,8 +1,8 @@
 {
   "name": "se.omnifinity.omnideck",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "displayName": "Omnideck",
-  "description": "This is the Omnideck API package",
+  "description": "The Omnideck API package",
   "unity": "2022.3",
   "documentationUrl": "https://github.com/Omnifinity/Unity-Omnideck-API/blob/main/Documentation~/omnideck.md",
   "changelogUrl": "https://github.com/Omnifinity/Unity-Omnideck-API/blob/main/CHANGELOG.md",
@@ -15,22 +15,26 @@
   "keywords": [
     "omnifinity",
     "omnideck",
-    "omnitrack"
+    "omnitrack",
+    "locomotion",
+    "smooth locomotion",
+    "free locomotion",
+    "treadmill"
   ],
   "author": {
     "name": "Omnifinity",
-    "email": "info@omnifinity.se",
+    "email": "peter.thor@omnifinity.se",
     "url": "https://www.omnifinity.se"
   },
   "samples": [
     {
-      "displayname": "Movement using a Character Controller",
-      "description": "Contains samples for using the Omnideck with a Character Controller",
+      "displayName": "Omnideck with Character Controller",
+      "description": "Sample for implementing the Omnideck Using a Unity Character Controller",
       "path":  "Samples~/SamplesCharacterController"
     },
     {
-      "displayname": "Movement using a Vector3",
-      "description": "Contains samples for using the Omnideck with a Vector3",
+      "displayName": "Omnideck with Vector3",
+      "description": "Samples for implementing the Omnideck with a Vector3",
       "path": "Samples~/SamplesVector3"
     }
   ]

@@ -1,6 +1,6 @@
 ﻿/*
    Copyright 2023 MSE Omnifinity AB
-   The code below is part of the Omnitrack Unity API
+   The code below is part of the Omnideck Unity API
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@ using System.Runtime.InteropServices;
 
 namespace Omnifinity
 {
-    namespace Omnitrack
+    namespace Omnideck
     {
 
-		#region OmnitrackEnums
-		enum ETreadmillStatus {
+		#region OmnideckEnums
+		public enum ETreadmillStatus {
 			Stopped = 1,
 			Running = 2,
 			Stopped_OnGameRequest = 3
@@ -43,9 +43,9 @@ namespace Omnifinity
 			Result_Disabled_Ok = 100,
 			Result_Enabled_Ok = 200
 		}
-		#endregion OmnitrackEnums
+		#endregion OmnideckEnums
 
-        class OmnitrackInterface: MonoBehaviour
+        public class OmnideckInterface: MonoBehaviour
         {
 
 			public enum LogLevel {None, TerseUserMovementVector, Verbose}
@@ -59,19 +59,19 @@ namespace Omnifinity
 			[DllImport("OmnitrackAPI")]
 			private static extern UInt16 GetAPIVersionPatch ();
 
-            // Initialize Omnitrack API communication
+            // Initialize Omnideck API communication
             [DllImport("OmnitrackAPI")]
             private static extern int InitializeOmnitrackAPI();
 
-            // Establish network connection with Omnitrack
+            // Establish network connection with Omnideck
 			[DllImport("OmnitrackAPI")]
 			private static extern int EstablishOmnitrackConnection(ushort serverPort, string trackerName);
 
-            // Close the connection with Omnitrack
+            // Close the connection with Omnideck
             [DllImport("OmnitrackAPI")]
             private static extern int CloseOmnitrackConnection();
 
-            // Run the Omnitrack mainloop each frame to properly receive new data
+            // Run the Omnideck mainloop each frame to properly receive new data
             [DllImport("OmnitrackAPI")]
 			[return:MarshalAs(UnmanagedType.I1)]
             private static extern void UpdateOmnitrack();
@@ -89,7 +89,7 @@ namespace Omnifinity
 			[DllImport("OmnitrackAPI")]
 			private static extern int GetTreadmillState();
 
-			// Send heart beat to Omnitrack and notify it which DLL version and platform this game is using
+			// Send heart beat to Omnideck and notify it which DLL version and platform this game is using
 			[DllImport("OmnitrackAPI")]
 			private static extern int SendHeartbeatToOmnitrack(UInt16 major, UInt16 minor, UInt16 patch, UInt16 platform);
 
@@ -109,7 +109,7 @@ namespace Omnifinity
 			#endregion OmnitrackAPIImports
 
 			#region OmnitrackAPIImports_Beta
-			// Handshake between this projects DLL API-version and Omnitrack-version
+			// Handshake between this projects DLL API-version and Omnideck-version
 			[DllImport("OmnitrackAPI")]
 			private static extern int PerformOmnitrackHandshake();
 
@@ -135,12 +135,12 @@ namespace Omnifinity
 			[DllImport("OmnitrackAPI")]
 			private static extern double getTimeValDurationOfLastMessage();
 
-			// Send a request to Omnitrack that you'd like to stop the Omnideck
+			// Send a request to Omnideck that you'd like to stop the Omnideck
 			// ATTN: Implementation not finished.
 			[DllImport("OmnitrackAPI")]
 			private static extern ESystemReplyOperateTreadmill UserRequestToStopTreadmill();
 
-			// Send a request to Omnitrack that you'd like to start the Omnideck
+			// Send a request to Omnideck that you'd like to start the Omnideck
 			// ATTN: Implementation not finished.
 			[DllImport("OmnitrackAPI")]
 			private static extern ESystemReplyOperateTreadmill UserRequestToStartTreadmill();
@@ -156,14 +156,14 @@ namespace Omnifinity
 			private static extern bool IsAllowedToStopTreadmill();
             #endregion OmnitrackAPIImports_Beta
 
-            #region OmnitrackVariables
+            #region OmnideckVariables
             // 1 == Unity. Do not edit.
             private ushort API_Platform_Type = 1;
 
-            // How often to receive motion velocity data from omnitrack.
+            // How often to receive motion velocity data from Omnideck.
             // ATTN: Subject to change.
             const float desiredFps_TrackingData = 75f;
-			double omnitrackFps_TrackingData = 0;
+			double OmnideckFps_TrackingData = 0;
 
 			// Keep track of current and previous velocity to be able to calculate a movement vel
 			bool hasReceivedStartVelocity = false;
@@ -177,13 +177,13 @@ namespace Omnifinity
             uint numberOfSimilarTrackingDataMessages = 0;
 
 			string strAPIVersion = "";
-			string strOmnitrackVersion = "";
+			string strOmnideckVersion = "";
 			bool isHandShakeFinished = false;
 
 			// Port and trackername. Should normally not be changed.
 			public ushort port = 3889;
 			public string trackerName = "AppToOmnitrackTracker0";
-			#endregion OmnitrackVariables
+			#endregion OmnideckVariables
 
 
 			bool _hasReceivedTrackingDataFPS = false;
@@ -191,67 +191,67 @@ namespace Omnifinity
 			IEnumerator _trackingDataCoroutine;
 
 			#region MonoBehaviourMethods
-            // Setup Omnitrack communication, SteamVR connection, Unity Character 
+            // Setup Omnideck communication, SteamVR connection, Unity Character 
             // Controller component and start various coroutines
             virtual public void Start()
             {
-                // Initialize communication with the Omnitrack API
+                // Initialize communication with the Omnideck API
                 InitializeOmnitrackAPI();
 
                 // Establish the connection (uses VRPN)
                 if (EstablishOmnitrackConnection(port, trackerName) == 0)
                 {
-                    // Periodically communicate and acquire tracking data from Omnitrack
+                    // Periodically communicate and acquire tracking data from Omnideck
 					_trackingDataCoroutine = AcquireTrackingData (1.0f / desiredFps_TrackingData);
 					StartCoroutine(_trackingDataCoroutine);
 
-                    // Periodically tell Omnitrack we are alive
+                    // Periodically tell Omnideck we are alive
                     StartCoroutine(SendHeartBeat());
 
 					// Periodically check the state of the Omnideck
-					StartCoroutine(CheckOmnideckState());
+					StartCoroutine(CheckOmnitrackState());
 
 					if (debugLevel != LogLevel.None)
-	                    Debug.Log("Successful setup of communication handlers with Omnitrack");
+	                    Debug.Log("Successful setup of communication handlers with Omnideck");
                 }
                 else
                 {
 					if (debugLevel != LogLevel.None)
-	                    Debug.LogError("Unable to setup communication handlers with Omnitrack");
+	                    Debug.LogError("Unable to setup communication handlers with Omnideck");
                 }
             }
 
-			// Shut down the connection to Omnitrack
+			// Shut down the connection to Omnideck
 			void OnApplicationQuit() {
 				if (CloseOmnitrackConnection() == 0)
 				{
 					if (debugLevel != LogLevel.None)
-						Debug.Log("Closed down communication with Omnitrack");
+						Debug.Log("Closed down communication with Omnideck");
 				}
 				else
 				{
 					if (debugLevel != LogLevel.None)
-						Debug.LogWarning("Unable to properly close down ommunication with Omnitrack");
+						Debug.LogWarning("Unable to properly close down ommunication with Omnideck");
 				}
 			}
 			#endregion MonoBehaviourMethods
 
 			#region OmnitrackAPIMethods
 			// Get the current velocity of the person walking on the omnideck
-			public static Vector3 GetOmnideckCharacterVelocity()
+			public static Vector3 GetOmnitrackCharacterVelocity()
 			{
 				return new Vector3((float)getVX(), (float)getVY(), (float)getVZ());
 			}
 
 			// Update the omnideck users position/movement vector
-			private void UpdateOmnideckCharacterMovement() {
+			private void UpdateOmnitrackCharacterMovement() {
 				// if there is no connection, set velocity to zero and escape
 				if (!IsOmnitrackOnline ()) {
 					currMovementVector = Vector3.zero;
 					return;
 				}
 
-                currVelocity = GetOmnideckCharacterVelocity();
+                currVelocity = GetOmnitrackCharacterVelocity();
 
 				// make sure the initial starting velocity does not result in a large jump
 				if (!hasReceivedStartVelocity) {
@@ -262,13 +262,13 @@ namespace Omnifinity
                     prevVelocity = currVelocity;
 				}
 
-				// update movement vector (if we've received which fps to run at from Omnitrack)
-				if (omnitrackFps_TrackingData > 0)
+				// update movement vector (if we've received which fps to run at from Omnideck)
+				if (OmnideckFps_TrackingData > 0)
 					currMovementVector = currVelocity;
 				else
 					currMovementVector = Vector3.zero;
 
-				// cap the vector if it is very high (e.g. when omnitrack starts and headset goes from
+				// cap the vector if it is very high (e.g. when Omnideck starts and headset goes from
 				// lying on the centerplate to being moved
 				Vector3 vectorToCheck = new Vector3 (currMovementVector.x, 0, currMovementVector.z);
 				float vel = vectorToCheck.magnitude;
@@ -298,23 +298,23 @@ namespace Omnifinity
 				return currMovementVector;
 			}
 
-            // Acquire tracking data from Omnitrack
+            // Acquire tracking data from Omnideck
             // ATTN: Subject to change
             IEnumerator AcquireTrackingData(float waitTime)
             {
                 while (true)
                 {
-					// Update against Omnitrack API
+					// Update against Omnideck API
                     UpdateOmnitrack();
 
 					// Update Omnideck Character position/movement data
-					UpdateOmnideckCharacterMovement ();
+					UpdateOmnitrackCharacterMovement ();
 
                     yield return new WaitForSeconds(waitTime);
                 }
             }
 
-            // Periodically send heatbeat to Omnitrack to notify that game is alive
+            // Periodically send heatbeat to Omnideck to notify that game is alive
             IEnumerator SendHeartBeat()
             {
                 float waitTime = 1.0f;
@@ -324,12 +324,12 @@ namespace Omnifinity
                     {
 						SendHeartbeatToOmnitrack(GetAPIVersionMajor(), GetAPIVersionMinor(), GetAPIVersionPatch(), API_Platform_Type);
 						if (debugLevel != LogLevel.None)
-							Debug.Log("Sent heartbeat to Omnitrack, using API v" + GetAPIVersionMajor().ToString () + "." + GetAPIVersionMinor().ToString () + "." + GetAPIVersionPatch().ToString ());
+							Debug.Log("Sent heartbeat to Omnideck, using API v" + GetAPIVersionMajor().ToString () + "." + GetAPIVersionMinor().ToString () + "." + GetAPIVersionPatch().ToString ());
                     }
                     else
                     {
 						if (debugLevel != LogLevel.None)
-	                        Debug.LogWarning("Unable to send heartbeat to Omnitrack - connection down");
+	                        Debug.LogWarning("Unable to send heartbeat to Omnideck - connection down");
                     }
                     yield return new WaitForSeconds(waitTime);
                 }
@@ -341,13 +341,13 @@ namespace Omnifinity
 					return (ETreadmillStatus)GetTreadmillState ();
 				} else {
 					if (debugLevel != LogLevel.None)
-						Debug.LogError ("Unable to check status, not connected to Omnitrack");
+						Debug.LogError ("Unable to check status, not connected to Omnideck");
 					return ETreadmillStatus.Stopped;
 				}
 			}
 
 			// Periodically check the state of the Omnideck
-			IEnumerator CheckOmnideckState()
+			IEnumerator CheckOmnitrackState()
 			{
 				float waitTime = 1.0f;
 				while (true)
@@ -376,22 +376,22 @@ namespace Omnifinity
 							break;
 						}
 
-						omnitrackFps_TrackingData = getTrackingDataFPS ();
-						if (omnitrackFps_TrackingData > 0) {
+						OmnideckFps_TrackingData = getTrackingDataFPS ();
+						if (OmnideckFps_TrackingData > 0) {
 							if (!_hasReceivedTrackingDataFPS) {
 								_hasReceivedTrackingDataFPS = true;
 								if (debugLevel != LogLevel.None)
-									Debug.Log ("Tracking data arrives at FPS: " + omnitrackFps_TrackingData);
+									Debug.Log ("Tracking data arrives at FPS: " + OmnideckFps_TrackingData);
 								StopCoroutine (_trackingDataCoroutine);
-								_trackingDataCoroutine = AcquireTrackingData (1.0f / (float)omnitrackFps_TrackingData);
+								_trackingDataCoroutine = AcquireTrackingData (1.0f / (float)OmnideckFps_TrackingData);
 								StartCoroutine (_trackingDataCoroutine);
 							}
 						} else {
-							Debug.Log ("Have not received tracking data FPS setting from Omnitrack yet");
+							Debug.Log ("Have not received tracking data FPS setting from Omnideck yet");
 						}
 					} else {
 						if (debugLevel != LogLevel.None)
-							Debug.LogWarning ("Omnitrack connection offline");
+							Debug.LogWarning ("Omnideck connection offline");
 						currMovementVector = Vector3.zero;
 					}
 					yield return new WaitForSeconds(waitTime);
@@ -430,7 +430,7 @@ namespace Omnifinity
 					else
 					{
 						if (debugLevel != LogLevel.None)
-							Debug.LogWarning("Unable to handshake with Omnitrack - connection down");
+							Debug.LogWarning("Unable to handshake with Omnideck - connection down");
 					}
 					yield return new WaitForSeconds(waitTime);
 				}
@@ -460,7 +460,7 @@ namespace Omnifinity
 						}
 					} else {
 						if (debugLevel != LogLevel.None)
-							Debug.LogError ("Unable to send request, not connected to Omnitrack");
+							Debug.LogError ("Unable to send request, not connected to Omnideck");
 					}
 				}
 
@@ -479,7 +479,7 @@ namespace Omnifinity
 						}
 					} else {
 						if (debugLevel != LogLevel.None)
-							Debug.LogError ("Unable to send request, not connected to Omnitrack");
+							Debug.LogError ("Unable to send request, not connected to Omnideck");
 					}
 				}
             }
@@ -504,7 +504,7 @@ namespace Omnifinity
                 else
                 {
                     if (debugLevel != LogLevel.None)
-                        Debug.LogError("Unable to send request, not connected to Omnitrack");
+                        Debug.LogError("Unable to send request, not connected to Omnideck");
                 }
             }
 
@@ -528,7 +528,7 @@ namespace Omnifinity
                 else
                 {
                     if (debugLevel != LogLevel.None)
-                        Debug.LogError("Unable to send request, not connected to Omnitrack");
+                        Debug.LogError("Unable to send request, not connected to Omnideck");
                 }
             }
 

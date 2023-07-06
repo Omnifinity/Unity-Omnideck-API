@@ -1,7 +1,7 @@
 ﻿/*
    Copyright 2017-2023 MSE Omnifinity AB
    The code below is a simple example of moving a transform based on 
-   position data arriving from Omnitrack.
+   position data arriving from Omnideck.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -18,27 +18,20 @@
 
 using UnityEngine;
 using System.Collections;
-using Omnifinity.Omnitrack;
 
 namespace Omnifinity
 {
-	namespace Omnitrack
+	namespace Omnideck
 	{
-		public class OmnitrackVector3Example : MonoBehaviour
+		public class OmnideckVector3 : MonoBehaviour
 		{
 
 			// debugging stuff
 			public enum LogLevel { None, Terse, Verbose }
 			public LogLevel debugLevel = LogLevel.Verbose;
 
-			// Assign platform that moves around
-			public GameObject playerSteamVR = null;
-
-			// Assign the actual camera eye
-			public GameObject cameraEyeSteamVR = null;
-
 			// our interface of interest
-			OmnitrackInterface omnitrackInterface;
+			OmnideckInterface _omnideckInterface;
 
 			// Camera eye transform for positioning of head collider
 			Transform cameraTransform = null;
@@ -47,32 +40,17 @@ namespace Omnifinity
 			// setup various things
 			void Start()
 			{
-				// get hold of the Omnitrack interface component
-				omnitrackInterface = GetComponent<OmnitrackInterface>();
-				if (omnitrackInterface)
+				// get hold of the Omnideck interface component
+				_omnideckInterface = GetComponent<OmnideckInterface>();
+				if (_omnideckInterface)
 				{
 					if (debugLevel != LogLevel.None)
-						Debug.Log("OmnitrackInterface object: " + omnitrackInterface);
+						Debug.Log("OmnideckInterface object: " + _omnideckInterface);
 				}
 				else
 				{
 					if (debugLevel != LogLevel.None)
-						Debug.Log("Unable to find OmnitrackInterface component on object. Please add an OmnitrackInterface component.", gameObject);
-					return;
-				}
-
-				// get hold of the steamvr camera and its transform
-				//cameraEye = FindObjectOfType<SteamVR_Camera>();
-				if (cameraEyeSteamVR)
-				{
-					if (debugLevel != LogLevel.None)
-						Debug.Log("SteamVR Camera (eye): " + cameraEyeSteamVR, cameraEyeSteamVR);
-					cameraTransform = cameraEyeSteamVR.transform;
-				}
-				else
-				{
-					if (debugLevel != LogLevel.None)
-						Debug.LogError("Unable to find SteamVR Eye Camera object");
+						Debug.Log("Unable to find OmnideckInterface component on object. Please add an OmnideckInterface component.", gameObject);
 					return;
 				}
 			}
@@ -81,11 +59,11 @@ namespace Omnifinity
 			void Update()
 			{
 				// escape if we have not gotten hold of the interface component
-				if (!omnitrackInterface)
+				if (!_omnideckInterface)
 					return;
 
 				// calculate movement vector since last pass [m/s]
-				Vector3 currMovementVector = omnitrackInterface.GetCurrentOmnideckCharacterMovementVector();
+				Vector3 currMovementVector = _omnideckInterface.GetCurrentOmnideckCharacterMovementVector();
 
 				// disregard height changes
 				Vector3 bodyMovementVector = new Vector3(currMovementVector.x, 0, currMovementVector.z);
@@ -100,13 +78,13 @@ namespace Omnifinity
 			}
 			#endregion MonoBehaviorMethods
 
-			#region OmnitrackMethods_Beta
+			#region OmnideckMethods_Beta
 			// various prototype code in development below
 			void PrototypeCodeSubjectToChange()
 			{
-				omnitrackInterface.DevRequestChangeOfOmnideckOperationMode();
+				_omnideckInterface.DevRequestChangeOfOmnideckOperationMode();
 			}
-			#endregion OmnitrackMethods_Beta
+			#endregion OmnideckMethods_Beta
 		}
 	}
 }
