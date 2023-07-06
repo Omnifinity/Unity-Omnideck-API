@@ -1,6 +1,6 @@
 {
   "name": "se.omnifinity.omnideck",
-  "version": "2.0.0-alpha",
+  "version": "2.0.1-alpha",
   "displayName": "Omnideck",
   "description": "The Omnideck API package",
   "unity": "2022.3",
