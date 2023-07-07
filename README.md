@@ -13,6 +13,8 @@ Navigate to the <i>Window > Package Manager</i>. Search for the <i>XR Interactio
 More details will follow...
 
 ## Samples
+<b>The functionality of the samples below are incomplete and do not work fully with the XR rig as of 2023-07-07. </b>
+
 The package contains two simple samples that integrate the Omnideck API with a unity Gameobject.
 - Example 1: The Omnideck Platform uses Unity Character Controller that can collide with the surrounding objects. It has an XR Rig attached to it.
 - Example 2: The Omnideck Platform uses a Vector3 script, without any object collision. It has an XR Rig attached to it.
