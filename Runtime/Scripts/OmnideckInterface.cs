@@ -222,7 +222,7 @@ namespace Omnifinity
             }
 
 			// Shut down the connection to Omnideck
-			void OnApplicationQuit() {
+            void OnDestroy()
 				if (CloseOmnitrackConnection() == 0)
 				{
 					if (debugLevel != LogLevel.None)
