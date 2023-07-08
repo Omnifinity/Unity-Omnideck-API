@@ -224,6 +224,9 @@ namespace Omnifinity
 			// Shut down the connection to Omnideck
             void OnDestroy()
             {
+                Debug.Log("OnDestroy()");
+
+				if (CloseOmnitrackConnection() == 0)
 				{
 					if (debugLevel != LogLevel.None)
 						Debug.Log("Closed down communication with Omnideck");
