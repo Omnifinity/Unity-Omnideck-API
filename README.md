@@ -13,11 +13,10 @@ Navigate to the <i>Window > Package Manager</i>. Search for the <i>XR Interactio
 More details will follow...
 
 ## Samples
-<b>The functionality of the samples below are incomplete and do not work fully with the XR rig as of 2023-07-07. </b>
-
-The package contains two simple samples that integrate the Omnideck API with a unity Gameobject.
-- Example 1: The Omnideck Platform uses Unity Character Controller that can collide with the surrounding objects. It has an XR Rig attached to it.
-- Example 2: The Omnideck Platform uses a Vector3 script, without any object collision. It has an XR Rig attached to it.
+The package contains three samples on how to integrate the Omnideck API with your VR application.
+- Example 1: Integration with the Unity XR Interaction toolkit interaction system (v2.5.2+) by adding a OmnideckContinousMoveProvider that extends the ContinousMoveProviderBase from XRI. Remember to import the XRI Starter Asset samples. Uses a Unity Character Controller that can collide with the surrounding objects. Supports hand controllers and basic interaction.
+- Example 2: Integration using a Unity Character Controller that can collide with the surrounding objects. It has an XR Rig attached to it.
+- Example 3: Integration using a Vector3 script, without any object collision. It has an XR Rig attached to it.
 
 ## Changelog
 Please see https://github.com/Omnifinity/Unity-Omnideck-API/blob/main/CHANGELOG.md

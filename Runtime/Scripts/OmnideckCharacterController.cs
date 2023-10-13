@@ -37,8 +37,9 @@ namespace Omnifinity
 			// The XR camera
 			public GameObject xrCamera = null;
 
-			// The interface to Omnideck
-			OmnideckInterface _omnideckInterface;
+            // The interface to Omnideck
+            [SerializeField]
+            OmnideckInterface _omnideckInterface;
 
 			// Camera eye transform for positioning of head collider
 			Transform _cameraTransform = null;
@@ -51,7 +52,6 @@ namespace Omnifinity
 			void Start()
 			{
 				// get hold of the Omnideck interface component
-				_omnideckInterface = GetComponent<OmnideckInterface>();
 				if (_omnideckInterface)
 				{
 					if (debugLevel != LogLevel.None)
@@ -120,6 +120,9 @@ namespace Omnifinity
 				// so that the user cannot move through walls
 				if (_cameraTransform != null)
 					_characterController.center = new Vector3(_cameraTransform.localPosition.x, 0, _cameraTransform.localPosition.z);
+
+				// ... and thirdly make scale the height of the character collider to match head position
+				// TBD. Please check how this is done in the XR Interaction toolkit for inspiration on your own.
 			}
 			#endregion MonoBehaviorMethods
 		}

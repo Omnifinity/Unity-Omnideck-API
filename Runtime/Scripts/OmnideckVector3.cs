@@ -31,6 +31,7 @@ namespace Omnifinity
 			public LogLevel debugLevel = LogLevel.Verbose;
 
 			// our interface of interest
+			[SerializeField]
 			OmnideckInterface _omnideckInterface;
 
 			// Camera eye transform for positioning of head collider
@@ -41,7 +42,6 @@ namespace Omnifinity
 			void Start()
 			{
 				// get hold of the Omnideck interface component
-				_omnideckInterface = GetComponent<OmnideckInterface>();
 				if (_omnideckInterface)
 				{
 					if (debugLevel != LogLevel.None)
