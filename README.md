@@ -6,8 +6,11 @@ Tested with:
 Unity 2022.3.8f1
 
 ## Installation
-Use the Unity Package Manager and add this github repo using the 
-url. 
+Either 1)
+Use the Unity Package Manager and add this github repo using the code URL.
+(https://github.com/Omnifinity/Unity-Omnideck-API.git)
+
+or 2) Download the code an unarchive it to your computer. Use the Unity Package Manager and use the "Add package from disk" and select the package.json file. 
 
 Navigate to the <i>Project Settings > XR Plug-in Managment</i>. Enable the OpenXR tickbox and fix any issues Unity recommends.
 If you are using a HTC Vive Controller navigate to the <i>Project Settings > XR Plug-in Management > OpenXR</i> and add the <i>HTC Vive Controller Profile</i> in the <i>Interaction Profiles</i> section.
