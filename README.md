@@ -2,6 +2,10 @@
 This is the package for the Unity Omnitrack API by Omnifinity.
 
 ## Installation
+Tested with:
+Unity 2022.3.8f1
+
+## Installation
 Use the Unity Package Manager and add this github repo using the 
 url. 
 
