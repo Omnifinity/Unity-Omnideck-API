@@ -43,8 +43,9 @@ Use the Unity Package Manager and add this github repo using the code URL.
 
    Navigate to the <i>Project Settings > XR Plug-in Managment</i>. Enable the *OpenXR* tickbox and fix any issues that Unity recommends. This could take a while if scripts need recompilation so be patient.
 
-   If you are using a HTC Vive Controller navigate to the <i>Project Settings > XR Plug-in Management > OpenXR</i> and add the <i>HTC Vive Controller Profile</i> in the <i>Interaction Profiles</i> section.
+7) If you are using a HTC Vive Controller navigate to the <i>Project Settings > XR Plug-in Management > OpenXR</i> and add the <i>HTC Vive Controller Profile</i> in the <i>Interaction Profiles</i> section.
 
+8) Go the the XR-Plugin Management and add the Open XR provider if you are using the HTC Vive VR system.
 
 ## Samples
 The package contains three samples on how to integrate the Omnideck API with your VR application.
