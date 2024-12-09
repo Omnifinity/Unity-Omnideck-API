@@ -4,6 +4,14 @@ This is the package for the Unity Omnitrack API by Omnifinity. It relies on the 
 ## Tested with
 Tested with:
 
+2024-12-04:
+- Unity 2022.3.53f1
+-   OpenXR Plugin TBD
+-   XR Interaction Toolkit TBD
+- SteamVR 2.8.7
+- Vive Business Streaming 2.0.12
+- Omnitrack 2.6.11
+
 2024-07-04:
 - Unity 2022.3.35f1
 -   OpenXR Plugin 1.11.0
